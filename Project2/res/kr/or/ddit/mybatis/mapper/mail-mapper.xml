@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 이 문서는 mybatis에서 처리할 SQL문을 작성하는 문서입니다... -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="email">
+
+	<insert id="insertMail" parameterType="emailVo">
+		insert into email
+		(email_id,email_sender,email_title,email_content,email_date)
+		values(#{email_id},#{email_sender},#{email_title},#{email_content},#{email_date})
+	</insert>
+
+	<select id="getAllMail" resultType="emailVo"
+		parameterType="String">
+    <!--메일함에서 메일 전체 확인하기 10 페에지 이상이면 다음 페이지 생성해서 쪽수늘리기  -->
+		select b.email_id , b.email_sender , b.email_title , b.email_content ,
+		b.email_date
+		from employees a ,email b , receivers c
+		where a.emp_id=c.emp_id
+		and b.email_id = c.email_id
+		and a.emp_mail like 'a001%';
+
+	</select>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
